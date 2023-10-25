@@ -19,17 +19,17 @@ onready var payment = Payment.new(PUBLIC_KEY)
 func _ready():
 	...
 	payment.start_setup()
-	payment.connect("connection_succeed",self,"_connection_succeed",[],CONNECT_ONESHOT)
-	payment.connect("connection_failed",self,"_connection_failed",[],CONNECT_ONESHOT)
-	payment.connect("disconnected",self,"_disconnected",[],CONNECT_ONESHOT)
+	payment.connect("connection_succeed",self,"connection_succeed",[],CONNECT_ONESHOT)
+	payment.connect("connection_failed",self,"connection_failed",[],CONNECT_ONESHOT)
+	payment.connect("disconnected",self,"disconnected",[],CONNECT_ONESHOT)
 
-func _connection_succeed():
+func connection_succeed():
 	...
 
-func _connection_failed(error : String):
+func connection_failed(error : String):
 	...
 
-func _disconnected():
+func disconnected():
 	...
 ```
 گودو 4:
@@ -41,17 +41,17 @@ const PUBLIC_KEY = ""
 func _ready():
 	...
 	payment.start_setup()
-	payment.connection_succeed.connect(_connection_succeed,CONNECT_ONE_SHOT)
-	payment.connection_failed.connect(_connection_failed,CONNECT_ONE_SHOT)
-	payment.disconnected.connect(_disconnected,CONNECT_ONE_SHOT)
+	payment.connection_succeed.connect(connection_succeed,CONNECT_ONE_SHOT)
+	payment.connection_failed.connect(connection_failed,CONNECT_ONE_SHOT)
+	payment.disconnected.connect(disconnected,CONNECT_ONE_SHOT)
 
-func _connection_succeed():
+func connection_succeed():
 	...
 
-func _connection_failed(error : String):
+func connection_failed(error : String):
 	...
 
-func _disconnected():
+func disconnected():
 	...
 ```
 فانکشن `start_setup` سه سیگنال دارد:
@@ -71,49 +71,49 @@ func _disconnected():
 
 ```gdscript
 	payment.purchase_product("product_id")
-	payment.connect("purchase_succeed",self,"_purchase_succeed",[],CONNECT_ONESHOT)
-	payment.connect("purchase_flow_began",self,"_purchase_flow_began",[],CONNECT_ONESHOT)
-	payment.connect("failed_to_begin_flow",self,"_failed_to_begin_flow",[],CONNECT_ONESHOT)
-	payment.connect("purchase_canceled",self,"_purchase_canceled",[],CONNECT_ONESHOT)
-	payment.connect("purchase_failed",self,"_purchase_failed",[],CONNECT_ONESHOT)
+	payment.connect("purchase_succeed",self,"purchase_succeed",[],CONNECT_ONESHOT)
+	payment.connect("purchase_flow_began",self,"purchase_flow_began",[],CONNECT_ONESHOT)
+	payment.connect("failed_to_begin_flow",self,"failed_to_begin_flow",[],CONNECT_ONESHOT)
+	payment.connect("purchase_canceled",self,"purchase_canceled",[],CONNECT_ONESHOT)
+	payment.connect("purchase_failed",self,"purchase_failed",[],CONNECT_ONESHOT)
 
-func _purchase_succeed(info : PurchaseInfo):
+func purchase_succeed(info : PurchaseInfo):
 	...
 
-func _purchase_flow_began():
+func purchase_flow_began():
 	...
 
-func _failed_to_begin_flow(error : String):
+func failed_to_begin_flow(error : String):
 	...
 
-func _purchase_canceled():
+func purchase_canceled():
 	...
 
-func _purchase_failed(error : String):
+func purchase_failed(error : String):
 	...
 ```
 گودو 4:
 ```gdscript
 	payment.purchase_product("product_id")
-	payment.purchase_succeed.connect(_purchase_succeed,CONNECT_ONE_SHOT)
-	payment.purchase_flow_began.connect(_purchase_flow_began,CONNECT_ONE_SHOT)
-	payment.failed_to_begin_flow.connect(_failed_to_begin_flow,CONNECT_ONE_SHOT)
-	payment.purchase_canceled.connect(_purchase_canceled,CONNECT_ONE_SHOT)
-	payment.purchase_failed.connect(_purchase_failed,CONNECT_ONE_SHOT)
+	payment.purchase_succeed.connect(purchase_succeed,CONNECT_ONE_SHOT)
+	payment.purchase_flow_began.connect(purchase_flow_began,CONNECT_ONE_SHOT)
+	payment.failed_to_begin_flow.connect(failed_to_begin_flow,CONNECT_ONE_SHOT)
+	payment.purchase_canceled.connect(purchase_canceled,CONNECT_ONE_SHOT)
+	payment.purchase_failed.connect(purchase_failed,CONNECT_ONE_SHOT)
 
-func _purchase_succeed(info : PurchaseInfo):
+func purchase_succeed(info : PurchaseInfo):
 	...
 
-func _purchase_flow_began():
+func purchase_flow_began():
 	...
 
-func _failed_to_begin_flow(error : String):
+func failed_to_begin_flow(error : String):
 	...
 
-func _purchase_canceled():
+func purchase_canceled():
 	...
 
-func _purchase_failed(error : String):
+func purchase_failed(error : String):
 	...
 ```
 
@@ -144,25 +144,25 @@ func _purchase_failed(error : String):
 گودو 3:
 ```gdscript
 	payment.consume_product("purchase_token")
-	payment.connect("consume_succeed",self,"_consume_succeed",[],CONNECT_ONESHOT)
-	payment.connect("consume_failed",self,"_consume_failed",[],CONNECT_ONESHOT)
+	payment.connect("consume_succeed",self,"consume_succeed",[],CONNECT_ONESHOT)
+	payment.connect("consume_failed",self,"consume_failed",[],CONNECT_ONESHOT)
 
-func _consume_succeed():
+func consume_succeed():
 	...
 
-func _consume_failed(error : String):
+func consume_failed(error : String):
 	...
 ```
 گودو 4:
 ```gdscript
 	payment.consume_product("purchase_token")
-	payment.consume_succeed.connect(_consume_succeed,CONNECT_ONE_SHOT)
-	payment.consume_failed.connect(_consume_failed,CONNECT_ONE_SHOT)
+	payment.consume_succeed.connect(consume_succeed,CONNECT_ONE_SHOT)
+	payment.consume_failed.connect(consume_failed,CONNECT_ONE_SHOT)
 
-func _consume_succeed():
+func consume_succeed():
 	...
 
-func _consume_failed(error : String):
+func consume_failed(error : String):
 	...
 ```
 همان‌طور که می‌بینید، `consume_product` دو سیگنال دارد:
@@ -183,26 +183,26 @@ func _consume_failed(error : String):
 گودو 3:
 ```gdscript
 	payment.get_purchased_products()
-	payment.connect("purchased_query_succeed",self,"_purchased_query_succeed",[],CONNECT_ONESHOT)
-	payment.connect("purchased_query_failed",self,"_purchased_query_failed",[],CONNECT_ONESHOT)
+	payment.connect("purchased_query_succeed",self,"purchased_query_succeed",[],CONNECT_ONESHOT)
+	payment.connect("purchased_query_failed",self,"purchased_query_failed",[],CONNECT_ONESHOT)
 
-func _purchased_query_succeed(items : Array):
+func purchased_query_succeed(items : Array):
    ...
 
-func _purchased_query_failed(error : String):
+func purchased_query_failed(error : String):
    ...
 ```
 گودو 4:
 ```gdscript
 func _ready():
 	payment.get_purchased_products()
-	payment.purchased_query_succeed.connect(_purchased_query_succeed,CONNECT_ONE_SHOT)
-	payment.purchased_query_failed.connect(_purchased_query_failed,CONNECT_ONE_SHOT)
+	payment.purchased_query_succeed.connect(purchased_query_succeed,CONNECT_ONE_SHOT)
+	payment.purchased_query_failed.connect(purchased_query_failed,CONNECT_ONE_SHOT)
 
-func _purchased_query_succeed(items : Array[PurchaseInfo]):
+func purchased_query_succeed(items : Array[PurchaseInfo]):
    ...
 
-func _purchased_query_failed(error : String):
+func purchased_query_failed(error : String):
    ...
 ```
 همانطور که می‌بینید، `get_purchased_products` دارای دو سیگنال می باشد:
@@ -218,25 +218,25 @@ func _purchased_query_failed(error : String):
 گودو 3:
 ```gdscript
 	payment.get_subscribed_products()
-	payment.connect("subscribed_query_succeed",self,"_subscribed_query_succeed",[],CONNECT_ONESHOT)
-	payment.connect("subscribed_query_failed",self,"_subscribed_query_failed",[],CONNECT_ONESHOT)
+	payment.connect("subscribed_query_succeed",self,"subscribed_query_succeed",[],CONNECT_ONESHOT)
+	payment.connect("subscribed_query_failed",self,"subscribed_query_failed",[],CONNECT_ONESHOT)
 
-func _subscribed_query_succeed(items : Array):
+func subscribed_query_succeed(items : Array):
 	...
 
-func _subscribed_query_failed(error : String):
+func subscribed_query_failed(error : String):
 	...
 ```
 گودو 4:
 ```gdscript
 	payment.get_subscribed_products()
-	payment.subscribed_query_succeed.connect(_subscribed_query_succeed,CONNECT_ONE_SHOT)
-	payment.subscribed_query_failed.connect(_subscribed_query_failed,CONNECT_ONE_SHOT)
+	payment.subscribed_query_succeed.connect(subscribed_query_succeed,CONNECT_ONE_SHOT)
+	payment.subscribed_query_failed.connect(subscribed_query_failed,CONNECT_ONE_SHOT)
 
-func _subscribed_query_succeed(items : Array[PurchaseInfo]):
+func subscribed_query_succeed(items : Array[PurchaseInfo]):
 	...
 
-func _subscribed_query_failed(error : String):
+func subscribed_query_failed(error : String):
 	...
 ```
 همانطور که می‌بینید، `get_subscribed_products` دارای دو سیگنال می باشد:
